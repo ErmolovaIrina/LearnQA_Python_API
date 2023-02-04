@@ -1,2 +1,2 @@
 name = 'Irina'
-print("Hello from " + name + ".")
+print(f"Hello from {name}.")

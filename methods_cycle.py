@@ -1,6 +1,6 @@
 import requests
 
-#список с значением параметров и урл запроса
+#список с значением параметров, методов и урл запроса
 methods = ["GET", "POST", "PUT", "DELETE"]
 url = "https://playground.learnqa.ru/ajax/api/compare_query_type"
 types = ["post", "put", "delete"]
@@ -25,6 +25,7 @@ def otherMethCycle():
         for method in methods:
             response = requests.request(type, url, data={"method": method})
             print(response.text)
+
 getCycle()
 print()
 otherMethCycle()

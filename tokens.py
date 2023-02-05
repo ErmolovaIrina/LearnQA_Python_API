@@ -4,23 +4,25 @@ import time
 
 #cоздаем задачу и парсим ответ
 response = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job")
-print(response.text)
-jsonList = json.loads(response.text)
+jsonList = response.json()
 
-#делаем запрос с токеном из ответа
+#делаем запрос с токеном из ответа и парсим ответ
 checkJobStatus = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job", params={"token": jsonList["token"]})
-print(checkJobStatus.text)
-#парсим ответ
-jobStatus = json.loads(checkJobStatus.text)
+jobStatus = checkJobStatus.json()
 
-#проверяем статус ответа и если он правильный, ждем отложенное время и спрашиваем еще раз
+#проверяем статус ответа и если он правильный, ждем нужное время и спрашиваем еще раз
 if jobStatus["status"] == "Job is NOT ready":
     time.sleep(jsonList["seconds"])
     readyResponse = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job", params={"token": jsonList["token"]})
     print(readyResponse.text)
 else:
-    print("чет не завелось")
+    print("Статус ответа неверный")
 
+#проверяем что в ответе есть поле result и поле status = Job is ready
+checkResponse = json.loads(readyResponse.text)
+keyResult = "result"
 
-
-#response = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job", params={"token": "abc"})
+if (keyResult in checkResponse and checkResponse.get("status") == "Job is ready"):
+    print("YES")
+else:
+    print("NO")

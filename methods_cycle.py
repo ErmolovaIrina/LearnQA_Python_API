@@ -19,7 +19,7 @@ def getCycle():
         response = requests.request(types[0], url, params={"method": method})
         print(response.text)
 
-def otherMethCycle():
+def otherMethodCycle():
     for type in types:
         print()
         for method in methods:
@@ -28,4 +28,4 @@ def otherMethCycle():
 
 getCycle()
 print()
-otherMethCycle()
+otherMethodCycle()

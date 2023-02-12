@@ -16,8 +16,6 @@ class TestUserAgent:
         response_dict = response.json()
         expected_response = expectedResult
 
-        assert response_dict == expected_response, "Headers are wrong"
-        print(response_dict)
-        print(expected_response)
+        assert response_dict == expected_response, f"Headers are wrong, expeceted header is {expectedResult}, thr real header is {response_dict}"
 
 

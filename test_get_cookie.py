@@ -8,4 +8,4 @@ class TestResponseCookie:
       name, value = list(cookie_value.items())[0]
       print(cookie_value)
 
-      assert name in cookie_value, f"There is no {name} cookie in response"
+      assert name in cookie_value, f"There is no cookie in response"

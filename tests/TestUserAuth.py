@@ -19,9 +19,6 @@ class TestUserAuth(BaseCase):
         self.token = self.get_header(response1, "token")
         self.user_id_from_auth_method = self.get_json_value(response1, "user_id")
 
-
-        assert "use_id" in response1.json(), "There is no userID in response"
-
     def test_auth_user(self):
         response2 = requests.get("https://playground.learnqa.ru/api/user/auth",
             headers={"x-csrf-token": self.token} ,

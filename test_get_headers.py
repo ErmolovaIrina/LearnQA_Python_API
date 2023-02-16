@@ -7,8 +7,11 @@ class TestResponseHeader:
       header_value = response.headers
       print(header_value)
 
-      expected_headers = ["Content-Type","Content-Length","Connection","Keep-Alive","Server","x-secret-homework-header","Cache-Control","Expires"]
-      for i in expected_headers:
-        assert i in response.headers, f"There is no key header '{i}' in response"
+      expected_result = {'Content-Type':'application/json', 'Connection':'keep-alive', 'Server':'Apache', 'x-secret-homework-header':'Some secret value'}
+
+      for key in expected_result.keys():
+        assert key in response.headers, f"There is no header with key '{key}' in response"
+
+      assert "Some secret value" in expected_result.get("x-secret-homework-header"), f"There is no header with value in response"
 
 

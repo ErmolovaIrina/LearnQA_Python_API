@@ -15,4 +15,4 @@ class TestHeader:
 
       for value in expected_result.values():
         print(value)
-        assert value in response.headers, f"There is no header with key '{value}' in response"
+        assert value in response.headers.values(), f"There is no header with key '{value}' in response"

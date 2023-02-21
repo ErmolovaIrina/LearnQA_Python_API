@@ -26,6 +26,10 @@ class Assertions:
         assert response.status_code == expected_status_code, \
             f"Unexpected status code! Expected: {expected_status_code} Actual: {response.status_code}"
 
+    @staticmethod
+    def assert_invalid_request_message(response, expected_message):
+        assert response.content.decode("utf-8") == f"{expected_message}", Assertions.assert_json_has_key(response, "id")
+
 
 
 

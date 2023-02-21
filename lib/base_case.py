@@ -18,3 +18,5 @@ class BaseCase:
         assert name in response_as_dict, f"Response JSON doesn't have key '{name}'"
 
         return response_as_dict[name]
+
+    

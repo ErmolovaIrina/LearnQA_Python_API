@@ -16,8 +16,12 @@ class TestUserGet(BaseCase):
         self.user_id_from_auth_method = self.get_json_value(response1, "user_id")
 
 
-        response2 = requests.get("https://playground.learnqa.ru/api/user/5",
+        response2 = requests.get("https://playground.learnqa.ru/api/user/2",
             headers={"x-csrf-token": self.token} ,
             cookies={"auth_sid": self.auth_sid})
 
-        Assertions.assert_json_has_keys()
+        unexpeted_fields = ["username", "email", "firstName", "lastName"]
+
+        #Assertions.assert_code_status(response2, 404)
+        #Assertions.assert_invalid_request_message(response2, "User not found")
+        Assertions.assert_json_has_not_keys(response2, unexpeted_fields)

@@ -74,14 +74,30 @@ class TestUserDelete(BaseCase):
             'password': password
         }
         response2 = MyRequests.post("/user/login", data=login_data)
+
+        auth_sid = self.get_cookie(response2, "auth_sid")
+        token = self.get_header(response2, "x-csrf-token")
+
         Assertions.assert_json_has_key(response2, "user_id")
 
     #DELETE
-        response3 = MyRequests.delete(f"/user/9465",
+        response3 = MyRequests.delete(f"/user/63028",
             headers={"x-csrf-token": "af0e641ce8b7d58e9119b3f50202a0a15c06b0dd6e6d71318f4f3feb7b93c60b"},
             cookies={"auth_sid": "626eed1f2395e02f893b61e1c366a624a2ab05765c06b0dd6e6d71318f4f3feb7b93c60b"})
         Assertions.assert_code_status(response3, 400)
         Assertions.assert_invalid_request_message(response3, 'Auth token not supplied')
+
+    #GET
+        response4 = MyRequests.get(f"/user/{user_id}",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid})
+        Assertions.assert_code_status(response4, 200)
+
+        expected_fields = ["id", "username", "email", "firstName", "lastName"]
+        Assertions.assert_json_has_keys(response4, expected_fields)
+
+        expected_user_id = self.get_json_value(response4, "id")
+        assert user_id == expected_user_id, f"Values don't match"
 
 
 

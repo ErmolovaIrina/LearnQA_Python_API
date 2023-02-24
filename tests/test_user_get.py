@@ -23,5 +23,6 @@ class TestUserGet(BaseCase):
 
         unexpeted_fields = ["id", "email", "firstName", "lastName"]
 
+        Assertions.assert_code_status(response2, 200)
         Assertions.assert_json_has_key(response2, "username")
         Assertions.assert_json_has_not_keys(response2, unexpeted_fields)

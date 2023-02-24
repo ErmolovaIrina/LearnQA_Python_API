@@ -16,7 +16,6 @@ class TestUserRegister(BaseCase):
         ad = "@"
         randomPart = datetime.now().strftime("m%d%Y%H%M%S")
 
-        self.wrong_email = f"{basePart}{randomPart}{domain}"
         self.correct_email = f"{basePart}{randomPart}{ad}{domain}"
 
     testData = [({"username":"Ivan123", "firstName":"Ivan", "lastName":"Ivanov", "email": "self.correct_email"}, "The following required params are missed: password"),
@@ -26,13 +25,7 @@ class TestUserRegister(BaseCase):
                 ({"password": "123", "username": "Ivan123", "firstName": "Ivan", "lastName": "Ivanov"}, "The following required params are missed: email")]
 
     def test_create_user_with_wrong_email(self):
-        data={
-            "password":"123",
-            "username":"Ivan123",
-            "firstName":"Ivan",
-            "lastName":"Ivanov",
-            "email": self.wrong_email
-        }
+        data=self.prerare_registration_with_wrong_email()
         response = requests.post('https://playground.learnqa.ru/api/user/', data=data)
 
         Assertions.assert_code_status(response, 400)

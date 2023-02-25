@@ -6,7 +6,7 @@ import allure
 @allure.feature("Редактирование пользователя")
 class TestUserEdit(BaseCase):
     @allure.description("Редактирование имени пользователя на короткое в один символ")
-    @allure.severity("Normal")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_change_user_with_too_short_firstName(self):
     #REGISTER
       with allure.step("Register"):
@@ -41,7 +41,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_invalid_request_message(response3, '{"error":"Too short value for field firstName"}')
 
     @allure.description("Изменение пользователя на имейл без символа @")
-    @allure.severity("Critical")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_change_user_with_wrong_email(self):
     #REGISTER
       with allure.step("Register"):
@@ -77,7 +77,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_invalid_request_message(response3, 'Invalid email format')
 
     @allure.description("Изменение юзера под чужой авторизацией")
-    @allure.severity("Critical")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_change_user_with_other_auth(self):
     #REGISTER
       with allure.step("Register"):
@@ -115,7 +115,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_invalid_request_message(response3, f"Can't edit user with id {user_id}")
 
     @allure.description("Изменение юзера без авторизации")
-    @allure.severity("Critical")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_change_user_without_auth(self):
     #REGISTER
       with allure.step("Register"):

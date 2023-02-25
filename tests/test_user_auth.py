@@ -8,8 +8,8 @@ import allure
 @allure.epic("Authorization cases")
 class TestUserAuth(BaseCase):
     exclude_params = [
-        ("no cookie"),
-        ("no token")
+        ("no_cookie"),
+        ("no_token")
     ]
 
     def setup(self):
@@ -25,7 +25,7 @@ class TestUserAuth(BaseCase):
 
     @allure.description("This test successfully authorize user with email and password")
     def test_auth_user(self):
-        response2 = MyRequests.get(f"/user/auth",
+        response2 = MyRequests.get("/user/auth",
             headers={"x-csrf-token": self.token} ,
             cookies={"auth_sid": self.auth_sid})
 

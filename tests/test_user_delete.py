@@ -1,8 +1,12 @@
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
+import allure
 
+@allure.feature("Удаления созданного пользователя")
 class TestUserDelete(BaseCase):
+    @allure.description("Удаление пользователя которого нельзя удалять")
+    @allure.severity("Critical")
     def test_delete_undedeliteble_user(self):
         login_data = {
             'email': 'vinkotov@example.com',
@@ -22,6 +26,8 @@ class TestUserDelete(BaseCase):
         Assertions.assert_code_status(response2, 400)
         Assertions.assert_invalid_request_message(response2, 'Please, do not delete test users with ID 1, 2, 3, 4 or 5.')
 
+    @allure.description("Успешное удаление пользователя")
+    @allure.severity("Critical")
     def test_delete_user(self):
     #REGISTER
         register_data = self.prepare_registration_data()
@@ -56,6 +62,8 @@ class TestUserDelete(BaseCase):
         Assertions.assert_code_status(response4, 404)
         Assertions.assert_invalid_request_message(response4, 'User not found')
 
+    @allure.description("Удаление пользователя с авторизацией под другим пользователем")
+    @allure.severity("Critical")
     def test_delete_user_with_other_auth(self):
     #REGISTER
         register_data = self.prepare_registration_data()

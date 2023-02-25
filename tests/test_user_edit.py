@@ -9,6 +9,7 @@ class TestUserEdit(BaseCase):
     @allure.severity("Normal")
     def test_change_user_with_too_short_firstName(self):
     #REGISTER
+      with allure.step("Register"):
         register_data= self.prepare_registration_data()
         response1 = MyRequests.post("/user/", data=register_data)
 
@@ -20,6 +21,7 @@ class TestUserEdit(BaseCase):
         user_id = self.get_json_value(response1, "id")
 
     #LOGIN
+      with allure.step("Login"):
         login_data = {
             'email': email,
             'password': password
@@ -29,6 +31,7 @@ class TestUserEdit(BaseCase):
         auth_sid= self.get_cookie(response2, "auth_sid")
         token= self.get_header(response2, "x-csrf-token")
     #EDIT
+      with allure.step("Edit"):
         new_name = "C"
         response3 = MyRequests.put(f"/user/{user_id}",
             headers={"x-csrf-token": token},
@@ -41,6 +44,7 @@ class TestUserEdit(BaseCase):
     @allure.severity("Critical")
     def test_change_user_with_wrong_email(self):
     #REGISTER
+      with allure.step("Register"):
         register_data= self.prepare_registration_data()
         response1 = MyRequests.post("/user/", data=register_data)
 
@@ -52,6 +56,7 @@ class TestUserEdit(BaseCase):
         user_id = self.get_json_value(response1, "id")
 
     #LOGIN
+      with allure.step("Login"):
         login_data = {
             'email': email,
             'password': password
@@ -62,6 +67,7 @@ class TestUserEdit(BaseCase):
         token= self.get_header(response2, "x-csrf-token")
 
     #EDIT
+      with allure.step("Edit"):
         new_email = "i.ermolova.com"
         response3 = MyRequests.put(f"/user/{user_id}",
             headers={"x-csrf-token": token},
@@ -74,6 +80,7 @@ class TestUserEdit(BaseCase):
     @allure.severity("Critical")
     def test_change_user_with_other_auth(self):
     #REGISTER
+      with allure.step("Register"):
         register_data= self.prepare_registration_data()
         response1 = MyRequests.post("/user/", data=register_data)
 
@@ -85,6 +92,7 @@ class TestUserEdit(BaseCase):
         user_id = self.get_json_value(response1, "id")
 
     #LOGIN
+      with allure.step("Login"):
         login_data = {
             'email': email,
             'password': password
@@ -95,6 +103,7 @@ class TestUserEdit(BaseCase):
         token= self.get_header(response2, "x-csrf-token")
 
     #EDIT
+      with allure.step("Edit"):
         new_name = "My new name"
         response3 = MyRequests.put(f"/user/675",
             headers={"x-csrf-token": token},
@@ -109,6 +118,7 @@ class TestUserEdit(BaseCase):
     @allure.severity("Critical")
     def test_change_user_without_auth(self):
     #REGISTER
+      with allure.step("Register"):
         register_data= self.prepare_registration_data()
         response1 = MyRequests.post("/user/", data=register_data)
 
@@ -120,6 +130,7 @@ class TestUserEdit(BaseCase):
         user_id = self.get_json_value(response1, "id")
 
     #EDIT
+      with allure.step("Edit"):
         new_name = "My new name"
         response3 = MyRequests.put(f"/user/{user_id}",
             headers={"x-csrf-token": "af0e641ce8b7d58e9119b3f50202a0a15c06b0dd6e6d71318f4f3feb7b93c60b"},
